@@ -45,3 +45,14 @@ def vote(request, question_id):
 
 
 
+def resultsData(request, obj):
+    votedata = []
+
+    question = Question.objects.get(id=obj)
+    votes = question.choice_set.all()
+
+    for i in votes:
+        votedata.append({i.choice_text:i.votes})
+
+    print(votedata)
+    return JsonResponse(votedata, safe=False)
